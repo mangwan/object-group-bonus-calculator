@@ -31,6 +31,67 @@ const employees = [
   }
 ];
 
+for (let employee of employees) {
+  console.log(employeeBonus(employee));
+}
+
+
+function employeeBonus(employee) {
+  console.log('in employeeBonus', employee);
+  let calcPercentage = calcBonus(employee);
+  let totalBonus = Math.floor(employee.annualSalary * calcPercentage);
+  let totalCompensation = Number(employee.annualSalary) + totalBonus;
+
+  let newEmployee = {
+    name: employee.name,
+    bonusPercentage: calcPercentage,
+    totalCompensation: totalCompensation,
+    totalBonus: totalBonus,
+  };
+  return newEmployee;
+};
+
+function calcBonus(employee) {
+  console.log('in calcBonus', employee);
+  let bonusPercentage = 0;
+
+  if (employee.reviewRating <= 2) {
+    bonusPercentage = 0;
+  } else if (employee.reviewRating === 3) {
+    bonusPercentage = 4;
+  } else if (employee.reviewRating === 4) {
+    bonusPercentage = 6;
+  } else {
+    bonusPercentage = 10;
+  }
+
+  if (employee.employeeNumber.toString().length === 4) {
+    bonusPercentage = bonusPercentage + 5;
+  }
+
+  if ( employee.annualSalary > 65000 ) {
+    bonusPercentage = bonusPercentage - 1;
+  }
+
+  if (bonusPercentage > 13) {
+    bonusPercentage = 13;
+  }
+
+  if (bonusPercentage < 0 ) {
+    bonusPercentage = 0;
+  }
+
+  console.log(employee.name,bonusPercentage);
+  
+  return (bonusPercentage/100);
+
+}
+
+  console.log(employees);
+
+
+
+
 // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
 // Take small steps! Don't write a for loop and two functions that do all of the calculations right away.
@@ -39,5 +100,3 @@ const employees = [
 
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
-
-console.log( employees );
